@@ -30,6 +30,6 @@ app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 function loadDB() {
   client.query(`
     CREATE TABLE IF NOT EXISTS
-    tasks(id serial primary key, title varchar(255), description varchar(255), contact varchar(255), status varchar(255), category varchar(255), due varchar(255));
+    book(id serial primary key, title varchar(255), description varchar(255), author varchar(255), image_url varchar(255));
     `)
 }
