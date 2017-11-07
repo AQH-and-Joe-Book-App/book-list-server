@@ -17,10 +17,10 @@ app.get('/', (req, res) => res.send('Testing 1, 2, 3'));
 
 app.get('/test', (req, res) => res.send('Testing test1, 2, 3'));
 
-app.get('/tasks', (req, res) => {
-  client.query(`SELECT * from tasks;`)
+app.get('/api/v1/books', (req, res) => {
+  client.query(`SELECT * from books;`)
     .then(results => res.send(results.rows))
-    .catch(console.error);
+    .catch(console.log('changes'));
 });
 
 app.get('*', (req, res) => res.redirect(CLIENT_URL));
