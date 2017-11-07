@@ -7,14 +7,17 @@ const pg = require('pg');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const CLIENT_URL = process.env.CLIENT_URL;
-const conString = 'postgres://postgres:sql@localhost:5432';
-const client = new pg.Client(conString);
+const client = new pg.Client(process.env.DATABASE_URL);
 client.connect();
 client.on('error', err => console.error(err));
 
 app.use(cors());
 
 app.get('/', (req, res) => res.send('Testing 1, 2, 3'));
+
+
+
+app.get('/test', (req, res) => res.send('Testing test1, 2, 3'));
 
 app.get('/tasks', (req, res) => {
   client.query(`SELECT * from tasks;`)
