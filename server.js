@@ -29,10 +29,19 @@ app.get('/api/v1/books', (req, res) => {
 
 app.get('/api/v1/books/:id', (req, res) => {
     client.query(`SELECT * FROM books
-    WHERE book_id=$1;`,[1])
+    WHERE book_id=$1;`,[req.params.id])
     .then(results => res.send(results.rows))
     .catch(console.log('changes'));
+});
 
+
+
+app.post('/api/v1/books/', (req, res) => {
+  let {title, author, isbn, image_url, description} = req.body;
+    client.query(`INSERT INTO books(title, author, isbn, image_url, description)
+    VALUES($1,$2,$3,$4,$5,$6)`,[title, author, isbn, image_url, description])
+    .then(results => res.sendStatus(201))
+    .catch(console.log('changes'));
 });
 
 
