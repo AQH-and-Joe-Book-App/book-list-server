@@ -17,7 +17,7 @@
     "app",
     "demo"
   ],
-  "author": "Allie Grampa",
+  "author": "",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/todo-app-demo/todo-app-server/issues"
@@ -29,5 +29,6 @@
     "express": "^4.16.2",
     "nodemon": "^1.12.1",
     "pg": "^7.4.0"
-  }
+  },
+  "devDependencies": {}
 }
