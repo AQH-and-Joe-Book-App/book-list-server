@@ -34,29 +34,23 @@ app.get('/api/v1/books/:id', (req, res) => {
 });
 
 
-app.post('/api/v1/books/', (req, res, callback) => {
-  console.log(req.body);
+app.post('/api/v1/books/', (req, res) => {
   let {title, author, isbn, image_url, description} = req.body;
     client.query(`INSERT INTO books(title, author, isbn, image_url, description)
     VALUES($1,$2,$3,$4,$5)`,[title, author, isbn, image_url, description])
     .then(results => res.sendStatus(201))
-    .then(callback)
     .catch(console.error);
 });
 
 // ask about this
-app.put('/api/v1/books/:id', (req, res, callback) => {
-    let {title, author, isbn, image_url, description} = req.body;
-  client.query(`UPDATE books SET title = $1, author = $2, isbn = $3, image_url = $4, description = $5 WHERE book_id=$6;`,[title, author, isbn, image_url, description, req.params.id])
+app.put('/api/v1/books/:id', (req, res) => {
+  client.query(`
+    UPDATE books
+    SET title = $1, author = $2, isbn = $3, image_url = $4, description = $5
+    WHERE book_id = $6;`,[req.body.title, req.body.author, req.body.isbn, req.body.image_url, req.body.description, req.params.id])
   .then(results => res.sendStatus(200))
-  .then(callback)
-  .catch(console.log('update a book'));
-
+  .catch(console.log('Update a book'));
 });
-
-
-
-
 
 // ask about this
 app.delete('/api/v1/books/:id', (req, res) => {
@@ -70,10 +64,3 @@ app.delete('/api/v1/books/:id', (req, res) => {
 
 app.get('*', (req, res) => res.redirect(CLIENT_URL));
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
-
-// function loadDB() {
-//   client.query(`
-//     CREATE TABLE IF NOT EXISTS
-//     book(id serial primary key, title varchar(255), description varchar(255), author varchar(255), image_url varchar(255));
-//     `)
-// }
